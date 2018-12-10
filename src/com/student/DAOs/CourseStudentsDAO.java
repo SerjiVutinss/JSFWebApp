@@ -15,7 +15,7 @@ import com.student.Models.Student;
 
 public class CourseStudentsDAO {
 
-	public List<Student> getStudents(Course c) throws SQLException, NamingException {
+	public List<Student> getStudents(Course c) throws SQLException, NamingException  {
 
 		List<Student> students = new ArrayList<>();
 

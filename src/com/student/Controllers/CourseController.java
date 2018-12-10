@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import com.student.ErrorHandler;
 import com.student.DAOs.CourseDAO;
 import com.student.DAOs.DAO;
@@ -50,7 +51,10 @@ public class CourseController {
 		} catch (SQLException e) {
 			FacesMessage msg = new FacesMessage("Could not load courses");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			e.printStackTrace();
+
+			ErrorHandler.printSQLException(e);
+			
+			
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

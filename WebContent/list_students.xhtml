@@ -11,11 +11,12 @@
 
 <h:head>
 	<title>Manage Students</title>
+	<h:outputStylesheet library="css" name="messages.css" />
 </h:head>
 
 <h:body>
 	<h1>student list</h1>
-	<h:messages globalOnly="true" styleClass="error" />
+	<h:messages globalOnly="true" styleClass="validationMessage" />
 
 	<h:button outcome="add_student" value="Add Student" />
 

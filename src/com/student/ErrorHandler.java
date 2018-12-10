@@ -16,6 +16,15 @@ public class ErrorHandler {
 //	Message: Cannot add or update a child row: a foreign key constraint fails (%s) 
 	public static final int ER_NO_REFERENCED_ROW = 1452;
 
+	public static String handleSqlException(SQLException ex) {
+
+		if (ex.getErrorCode() == 0) {
+			return "Error: Cannot connect to MySQL database";
+		}
+		return ex.getMessage();
+
+	}
+
 	public static String handleSqlException(SQLException ex, Object o) {
 
 		int errCode = ex.getErrorCode();

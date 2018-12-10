@@ -2,13 +2,10 @@ package com.student.DAOs;
 
 import static org.neo4j.driver.v1.Values.parameters;
 
-import java.sql.SQLException;
-
-import javax.naming.NamingException;
-
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
+import org.neo4j.driver.v1.exceptions.ServiceUnavailableException;
 
 import com.student.DataSources.Neo4jDataSource;
 import com.student.Models.Student;
@@ -17,7 +14,7 @@ public class StudentNeoDAO {
 
 	private Session session;
 
-	public StudentNeoDAO() {
+	public StudentNeoDAO() throws ServiceUnavailableException {
 		session = Neo4jDataSource.getDriver().session();
 	}
 
@@ -36,12 +33,12 @@ public class StudentNeoDAO {
 		System.out.println(count);
 	}
 
-	public void save(Student s) throws SQLException, NamingException {
+	public void save(Student s) {
 		String strCypher = "CREATE (s:STUDENT{ name : $name, address: $address })";
 		session.run(strCypher, parameters("name", s.getName(), "address", s.getAddress()));
 	}
 
-	public void delete(Student s) throws SQLException, NamingException {
+	public void delete(Student s) {
 		String strCypher = "MATCH (s:STUDENT{ name : $name}) DELETE s";
 		session.run(strCypher, parameters("name", s.getName()));
 	}
