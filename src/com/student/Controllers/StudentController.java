@@ -12,6 +12,7 @@ import javax.naming.NamingException;
 import com.student.ErrorHandler;
 import com.student.DAOs.DAO;
 import com.student.DAOs.StudentDAO;
+import com.student.DAOs.StudentNeoDAO;
 import com.student.Models.Student;
 
 @ManagedBean
@@ -99,5 +100,16 @@ public class StudentController {
 
 		// returns page to navigate to - can also return null on error
 		return "index.html";
+	}
+
+	public String getNeo4jStudents() {
+		
+		System.out.println("GETTING NEO4J STUDENTS!!!");
+		
+		StudentNeoDAO studentNeoDAO = new StudentNeoDAO();
+		
+		studentNeoDAO.getStudents();
+
+		return null;
 	}
 }

@@ -10,5 +10,11 @@
 	<h:link value="Manage Courses" outcome="list_courses" />
 	<br />
 	<h:link value="Manage Students" outcome="list_students.xhtml" />
+
+	<h:form>
+		<h:commandLink value="Log Neo4j Students"
+			action="#{studentController.getNeo4jStudents()}"></h:commandLink>
+	</h:form>
+
 </h:body>
 </html>
