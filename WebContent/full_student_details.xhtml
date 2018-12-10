@@ -5,56 +5,63 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-<f:event type="preRenderView"
-	listener="#{courseController.loadCourses()}" />
-
 
 <h:head>
-	<title>Manage Courses</title>
+	<title>Full Student Details</title>
 </h:head>
 
 <h:body>
-
-	<!-- 
+	<h1>Student Details</h1>
 	<h:messages globalOnly="true" styleClass="error" />
- -->
-
-	<h:button outcome="add_course" value="Add Course" />
-	<br />
 
 	<h:form>
-		<h:dataTable value="#{courseController.courses}" var="c"
+		<h:dataTable value="#{courseStudentsController.students}" var="s"
 			headerClass="table-header" rowClasses="table-odd-row, table-even-row">
 			<h:outputStylesheet library="css" name="tables.css" />
 
 			<h:column>
+				<f:facet name="header">ID</f:facet>
+			#{s.sid}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+			#{s.name}
+			</h:column>
+
+			<h:column>
 				<f:facet name="header">Course ID</f:facet>
-			#{c.id}
+			#{s.course.id}
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">Course Name</f:facet>
-			#{c.name}
+			#{s.course.name}
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">Course Duration</f:facet>
-			#{c.duration}
+			#{s.course.duration}
 			</h:column>
 
+
+			<!--
 			<h:column>
-				<f:facet name="header">Action</f:facet>
-				<h:commandLink value="Show Students"
-					action="#{courseStudentsController.showCourseStudents(c)}"></h:commandLink>
-				<span> </span>
-				<h:commandLink value="Delete" action="#{courseController.delete(c)}"></h:commandLink>
+				<f:facet name="header">CourseID</f:facet>
+			#{s.cID}
 			</h:column>
+ 
+			<h:column>
+				<f:facet name="header">Address</f:facet>
+			#{s.address}
+			</h:column>
+			-->
 
 		</h:dataTable>
-
 	</h:form>
 
-	<h:link value="Home" outcome="index" />
+	<span><h:link value="Home" outcome="index" /></span>
+	<span><h:link value="Students" outcome="list_students" /></span>
 
 </h:body>
 </html>

@@ -1,11 +1,13 @@
 package com.student.Controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.student.DAOs.MySqlDAO;
+import com.student.DAOs.CourseStudentsDAO;
 import com.student.Models.Course;
 import com.student.Models.Student;
 
@@ -13,8 +15,15 @@ import com.student.Models.Student;
 @ManagedBean
 public class CourseStudentsController {
 
-	MySqlDAO sqlDAO;
+	CourseStudentsDAO courseStudentsDAO;
 	private Course course;
+	private List<Student> students;
+
+	public CourseStudentsController() {
+
+		courseStudentsDAO = new CourseStudentsDAO();
+
+	}
 
 	public Course getCourse() {
 		return course;
@@ -24,31 +33,33 @@ public class CourseStudentsController {
 		this.course = course;
 	}
 
-	public ArrayList<Student> getStudents() {
+	public List<Student> getStudents() {
 		return students;
 	}
 
-	public void setStudents(ArrayList<Student> students) {
+	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
 
-	private ArrayList<Student> students;
-
-	public CourseStudentsController() {
-
-		try {
-			sqlDAO = new MySqlDAO();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public String showStudents(Course c) {
+	public String showCourseStudents(Course c) {
 
 		this.course = c;
-		this.students = this.sqlDAO.loadStudents(c);
-
+		try {
+			this.students = this.courseStudentsDAO.getStudents(c);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "list_course_students";
+	}
+
+	public String showStudentCourse(Student s) {
+		System.out.println(s.getSid());
+		this.students = new ArrayList<>();
+		try {
+			this.students.add(this.courseStudentsDAO.getCourse(s));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "full_student_details";
 	}
 }

@@ -10,12 +10,14 @@
 
 
 <h:head>
-	<title>Insert title here</title>
+	<title>Manage Students</title>
 </h:head>
 
 <h:body>
 	<h1>student list</h1>
 	<h:messages globalOnly="true" styleClass="error" />
+
+	<h:button outcome="add_student" value="Add Student" />
 
 	<h:form>
 		<h:dataTable value="#{studentController.students}" var="s"
@@ -26,21 +28,35 @@
 				<f:facet name="header">ID</f:facet>
 			#{s.sid}
 			</h:column>
+
 			<h:column>
 				<f:facet name="header">CourseID</f:facet>
 			#{s.cID}
 			</h:column>
+
 			<h:column>
 				<f:facet name="header">Name</f:facet>
 			#{s.name}
 			</h:column>
+
 			<h:column>
 				<f:facet name="header">Address</f:facet>
 			#{s.address}
 			</h:column>
 
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+				<h:commandLink value="Show Students"
+					action="#{courseStudentsController.showStudentCourse(s)}"></h:commandLink>
+				<span> </span>
+				<h:commandLink value="Delete"
+					action="#{studentController.delete(s)}"></h:commandLink>
+			</h:column>
+
 		</h:dataTable>
 	</h:form>
+
+	<h:link value="Home" outcome="index" />
 
 </h:body>
 </html>
