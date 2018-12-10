@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.naming.NamingException;
 
 import com.student.ErrorHandler;
 import com.student.DAOs.CourseDAO;
@@ -50,6 +51,9 @@ public class CourseController {
 			FacesMessage msg = new FacesMessage("Could not load courses");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -58,12 +62,17 @@ public class CourseController {
 			this.courseDao.save(c);
 		} catch (SQLException e) {
 
-			if (e.getErrorCode() == 1062) {
-				FacesMessage msg = new FacesMessage("Error: CourseID " + c.getId() + " already exists");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			}
-			ErrorHandler.printSQLException(e);
+			FacesMessage msg;
+//			if (e.getErrorCode() == 1062) {
+//				FacesMessage msg = new FacesMessage("Error: CourseID " + c.getId() + " already exists");
+//			}
+//			ErrorHandler.printSQLException(e);
+			msg = new FacesMessage(ErrorHandler.handleSqlException(e, c));
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return "list_courses";
@@ -74,10 +83,17 @@ public class CourseController {
 		try {
 			this.courseDao.delete(c);
 		} catch (SQLException e) {
-			FacesMessage msg = new FacesMessage("Error: Cannot delete");
+			FacesMessage msg;// = new FacesMessage("Error: Cannot delete");
+
+			msg = new FacesMessage(ErrorHandler.handleSqlException(e, c));
+
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			e.printStackTrace();
+//			e.printStackTrace();
+//			ErrorHandler.printSQLException(e);
 //			return null;
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		// returns page to navigate to - can also return null on error

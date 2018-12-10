@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.naming.NamingException;
 
 import com.student.DAOs.CourseStudentsDAO;
 import com.student.Models.Course;
@@ -48,6 +49,9 @@ public class CourseStudentsController {
 			this.students = this.courseStudentsDAO.getStudents(c);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return "list_course_students";
 	}
@@ -58,6 +62,9 @@ public class CourseStudentsController {
 		try {
 			this.students.add(this.courseStudentsDAO.getCourse(s));
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "full_student_details";

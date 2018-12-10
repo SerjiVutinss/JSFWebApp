@@ -7,13 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.NamingException;
+
 import com.student.DataSources.MySQLDataSource;
 import com.student.Models.Course;
 import com.student.Models.Student;
 
 public class CourseStudentsDAO {
 
-	public List<Student> getStudents(Course c) throws SQLException {
+	public List<Student> getStudents(Course c) throws SQLException, NamingException {
 
 		List<Student> students = new ArrayList<>();
 
@@ -37,7 +39,7 @@ public class CourseStudentsDAO {
 		return students;
 	}
 
-	public Student getCourse(Student s) throws SQLException {
+	public Student getCourse(Student s) throws SQLException, NamingException {
 
 //		List<Student> students = new ArrayList<>();
 

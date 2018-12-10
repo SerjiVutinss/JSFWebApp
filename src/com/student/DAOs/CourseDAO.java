@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.naming.NamingException;
+
 import com.student.DataSources.MySQLDataSource;
 import com.student.Models.Course;
 
@@ -21,7 +23,7 @@ public class CourseDAO implements DAO<Course> {
 	}
 
 	@Override
-	public List<Course> getAll() throws SQLException {
+	public List<Course> getAll() throws SQLException, NamingException {
 
 		ArrayList<Course> courses = new ArrayList<>();
 
@@ -40,7 +42,7 @@ public class CourseDAO implements DAO<Course> {
 	}
 
 	@Override
-	public void save(Course c) throws SQLException {
+	public void save(Course c) throws SQLException, NamingException {
 
 		String strSql = "INSERT INTO course VALUES (?, ?, ?)";
 
@@ -61,7 +63,7 @@ public class CourseDAO implements DAO<Course> {
 	}
 
 	@Override
-	public void delete(Course c) throws SQLException {
+	public void delete(Course c) throws SQLException, NamingException {
 
 		String strSql = "DELETE FROM course WHERE cID=?";
 		Connection conn = MySQLDataSource.getConnection();

@@ -39,7 +39,10 @@
 			<h:outputLabel value="Duration:" />
 			<h:inputText value="#{course.duration}" id="duration"
 				placeholder="Course Duration" required="true"
-				requiredMessage="Duration is mandatory" />
+				requiredMessage="Duration is mandatory"
+				validatorMessage="Course duration must be between 1 and 7 inclusive">
+				<f:validateLongRange minimum="1" maximum="7" />
+			</h:inputText>
 			<h:message class="validationMessage" for="duration" />
 
 

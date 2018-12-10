@@ -12,17 +12,17 @@ public class MySQLDataSource {
 
 	private static DataSource ds;
 
-	public static Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws SQLException, NamingException {
 		if (ds == null) {
 			Context context;
-			try {
-				context = new InitialContext();
-				String dbName = "java:comp/env/studentDB";
-				ds = (DataSource) context.lookup(dbName);
-			} catch (NamingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+			context = new InitialContext();
+			String dbName = "java:comp/env/studentDB";
+			ds = (DataSource) context.lookup(dbName);
+//			} catch (NamingException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			}
 		}
 		return ds.getConnection();
 	}
