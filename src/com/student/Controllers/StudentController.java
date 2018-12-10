@@ -30,10 +30,13 @@ public class StudentController {
 	}
 
 	DAO<Student> studentDao;
+	StudentNeoDAO studentNeoDao;
 
 	public StudentController() {
 
 		studentDao = new StudentDAO();
+		studentNeoDao = new StudentNeoDAO();
+
 		try {
 			studentDao.delete(new Student());
 		} catch (SQLException e) {
@@ -63,22 +66,17 @@ public class StudentController {
 	public String addStudent(Student s) {
 		try {
 			this.studentDao.save(s);
+			this.studentNeoDao.save(s);
 		} catch (SQLException e) {
 
 			FacesMessage msg;
-//			if (e.getErrorCode() == 1452) {
-//				msg = new FacesMessage("Error: CourseID " + s.getcID() + " does not exist");
-//			} else {
-//				msg = new FacesMessage("Error: " + e.getMessage());
-//			}
-
 			msg = new FacesMessage(ErrorHandler.handleSqlException(e, s));
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 
 			ErrorHandler.printSQLException(e);
 			return null;
+
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -87,27 +85,38 @@ public class StudentController {
 
 	public String delete(Student s) {
 
-		try {
-			this.studentDao.delete(s);
-		} catch (SQLException e) {
-			FacesMessage msg = new FacesMessage("Error: Cannot delete");
+		if (studentNeoDao.getNumberOfRelationShips(s.getName()) > 0) {
+			// user has neo4j relationships, show message and do not delete
+			FacesMessage msg = new FacesMessage("Error: Student " + s.getName()
+					+ " has not been deleted from any database as he/she has relationships in Neo4j");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			e.printStackTrace();
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			return null;
+		} else {
 
-		// returns page to navigate to - can also return null on error
-		return "index.html";
+			// user has no neo4j relation ships, proceed with deleting from both databases
+			try {
+				this.studentDao.delete(s);
+				this.studentNeoDao.delete(s);
+
+			} catch (SQLException e) {
+				FacesMessage msg = new FacesMessage("Error: Cannot delete");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return null;
+			} catch (NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+			return "list_students";
+		}
 	}
 
 	public String getNeo4jStudents() {
-		
+
 		System.out.println("GETTING NEO4J STUDENTS!!!");
-		
+
 		StudentNeoDAO studentNeoDAO = new StudentNeoDAO();
-		
+
 		studentNeoDAO.getStudents();
 
 		return null;

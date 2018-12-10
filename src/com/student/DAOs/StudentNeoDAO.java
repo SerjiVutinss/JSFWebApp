@@ -1,31 +1,75 @@
 package com.student.DAOs;
 
+import static org.neo4j.driver.v1.Values.parameters;
+
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 
 import com.student.DataSources.Neo4jDataSource;
-
-import static org.neo4j.driver.v1.Values.parameters;
+import com.student.Models.Student;
 
 public class StudentNeoDAO {
 
+	private Session session;
+
+	public StudentNeoDAO() {
+		session = Neo4jDataSource.getDriver().session();
+	}
+
 	public void getStudents() {
 
-		String name = "John";
+		String name = "James";
 
-		Session session = Neo4jDataSource.getDriver().session();
+		StatementResult result = session.run("match(s:STUDENT{name: $name})-[:KNOWS]->(student) return COUNT(student)",
+				parameters("name", name));
 
-//		StatementResult result = session.run("match(s:Student{name: $name})-[:KNOWS]->(student) return student.name",
-//				parameters("name", name));
+		int count = 0;
+		while (result.hasNext()) {
+			Record record = result.next();
+			count = record.get("COUNT(student)").asInt();
+		}
+		System.out.println(count);
+	}
 
-		StatementResult result = session.run("match(s:STUDENT) return s.name");
+	public void save(Student s) throws SQLException, NamingException {
+		String strCypher = "CREATE (s:STUDENT{ name : $name, address: $address })";
+		session.run(strCypher, parameters("name", s.getName(), "address", s.getAddress()));
+	}
+
+	public void delete(Student s) throws SQLException, NamingException {
+		String strCypher = "MATCH (s:STUDENT{ name : $name}) DELETE s";
+		session.run(strCypher, parameters("name", s.getName()));
+	}
+
+	public int getNumberOfRelationShips(String name) {
+		StatementResult result = session.run("match(s:STUDENT{name: $name})-[:KNOWS]->(student) return COUNT(student)",
+				parameters("name", name));
+
+		int count = 0;
+		while (result.hasNext()) {
+			Record record = result.next();
+			count = record.get("COUNT(student)").asInt();
+		}
+		return count;
+	}
+
+	public int getNumberOfRelationShips(Student s) {
+		return this.getNumberOfRelationShips(s.getName());
+	}
+
+	public void getStudentsNames() {
+
+		StatementResult result = session.run("match(s:STUDENT) return s");
 
 		while (result.hasNext()) {
 			Record record = result.next();
-			System.out.println(record.get("s.name"));
+			System.out.println(record.get("s").get("name"));
 		}
-
 	}
 
 }
