@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<f:event type="preRenderView"
+	listener="#{courseController.loadCourses()}" />
+
+
+<h:head>
+	<title>Add Course</title>
+</h:head>
+
+<h:body>
+
+	<h:form>
+
+Course ID:
+<h:inputText value="#{course.id}" id="cID" placeholder="Course ID"
+			required="true" requiredMessage="Name is mandatory">
+		</h:inputText>
+		<h:message for="cID" />
+			
+Name:
+
+		<h:inputText value="#{course.name}" id="name" placeholder="Name"
+			required="true" requiredMessage="Name is mandatory">
+		</h:inputText>
+		<h:message for="name" />
+
+
+
+			Duration:
+			<h:inputText value="#{course.duration}" id="duration"
+			placeholder="Course Duration" required="true"
+			requiredMessage="Name is mandatory">
+		</h:inputText>
+		<h:message for="duration" />
+
+
+		<h:commandButton action="#{courseController.addCourse(course)}"
+			type="submit" value="Add"></h:commandButton>
+
+	</h:form>
+
+
+	<br />
+
+	<h:link value="Home" outcome="index" />
+	<h:link value="Courses" outcome="list_courses" />
+
+</h:body>
+</html>
