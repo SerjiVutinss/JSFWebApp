@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import com.student.ErrorHandler;
 import com.student.DAOs.CourseDAO;
 import com.student.DAOs.DAO;
 import com.student.Models.Course;
@@ -56,9 +57,13 @@ public class CourseController {
 		try {
 			this.courseDao.save(c);
 		} catch (SQLException e) {
-			FacesMessage msg = new FacesMessage("Could not add course");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			e.printStackTrace();
+
+			if (e.getErrorCode() == 1062) {
+				FacesMessage msg = new FacesMessage("Error: CourseID " + c.getId() + " already exists");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			ErrorHandler.printSQLException(e);
+			return null;
 		}
 
 		return "list_courses";
@@ -72,6 +77,7 @@ public class CourseController {
 			FacesMessage msg = new FacesMessage("Error: Cannot delete");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			e.printStackTrace();
+//			return null;
 		}
 
 		// returns page to navigate to - can also return null on error

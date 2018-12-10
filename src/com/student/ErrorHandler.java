@@ -4,13 +4,15 @@ import java.sql.SQLException;
 
 public class ErrorHandler {
 
+	
+
 	public static void printSQLException(SQLException ex) {
 
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {
 				if (ignoreSQLException(((SQLException) e).getSQLState()) == false) {
 
-					e.printStackTrace(System.err);
+//					e.printStackTrace(System.err);
 					System.err.println("SQLState: " + ((SQLException) e).getSQLState());
 
 					System.err.println("Error Code: " + ((SQLException) e).getErrorCode());

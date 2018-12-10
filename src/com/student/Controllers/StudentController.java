@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import com.student.ErrorHandler;
 import com.student.DAOs.DAO;
 import com.student.DAOs.StudentDAO;
 import com.student.Models.Student;
@@ -53,9 +54,17 @@ public class StudentController {
 		try {
 			this.studentDao.save(s);
 		} catch (SQLException e) {
-			FacesMessage msg = new FacesMessage("Could not add student");
+
+			FacesMessage msg;
+			if (e.getErrorCode() == 1452) {
+				msg = new FacesMessage("Error: CourseID " + s.getcID() + " does not exist");
+			} else {
+				msg = new FacesMessage("Error: " + e.getMessage());
+			}
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			e.printStackTrace();
+
+			ErrorHandler.printSQLException(e);
+			return null;
 		}
 
 		return "list_student";
