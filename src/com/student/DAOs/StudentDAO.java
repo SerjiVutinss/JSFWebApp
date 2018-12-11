@@ -68,8 +68,9 @@ public class StudentDAO implements DAO<Student> {
 		PreparedStatement pstmt = conn.prepareStatement(strSql);
 		pstmt.setString(1, s.getSid());
 
-		int result = pstmt.executeUpdate();
-		System.out.println(result);
+//		int result = pstmt.executeUpdate();
+		pstmt.executeUpdate();
+//		System.out.println(result);
 
 	}
 

@@ -9,7 +9,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import com.student.ErrorHandler;
 import com.student.DAOs.CourseDAO;
 import com.student.DAOs.DAO;

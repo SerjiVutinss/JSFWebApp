@@ -77,7 +77,7 @@ public class StudentController {
 			this.studentNeoDao = null;
 		}
 
-		return "list_student";
+		return "list_students";
 	}
 
 	public String delete(Student s) {
