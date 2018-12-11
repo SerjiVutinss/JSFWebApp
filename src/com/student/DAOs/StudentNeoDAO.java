@@ -44,7 +44,7 @@ public class StudentNeoDAO {
 	}
 
 	public int getNumberOfRelationShips(String name) {
-		StatementResult result = session.run("match(s:STUDENT{name: $name})-[:KNOWS]->(student) return COUNT(student)",
+		StatementResult result = session.run("match(s:STUDENT{name: $name})-[:KNOWS]-(student) return COUNT(student)",
 				parameters("name", name));
 
 		int count = 0;

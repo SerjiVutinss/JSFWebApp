@@ -7,6 +7,8 @@ import com.student.Models.Student;
 
 public class ErrorHandler {
 
+	public static final int ER_CONN_NOT_AVAILABLE = 0;
+
 //	 Message: Duplicate entry '%s' for key %d 
 	public static final int ER_DUP_ENTRY = 1062;
 
@@ -30,6 +32,9 @@ public class ErrorHandler {
 		int errCode = ex.getErrorCode();
 
 		switch (errCode) {
+
+		case ER_CONN_NOT_AVAILABLE:
+			return "Error: Cannot connect to MySQL database";
 
 		// handle duplication - either primary key or unique column
 		case ER_DUP_ENTRY:

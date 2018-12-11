@@ -67,7 +67,7 @@ public class StudentController {
 		} catch (ServiceUnavailableException e) {
 			// neo4j is not available
 			this.msg = new FacesMessage(
-					"Warning: Student " + s.getName() + " has not been added to Neo4j DB as it is unavailable");
+					"Warning: Neo4j DB is unavailable - no operation performed for Student '" + s.getName() + "'");
 			FacesContext.getCurrentInstance().addMessage(null, this.msg);
 		} catch (NamingException e) {
 			e.printStackTrace();
