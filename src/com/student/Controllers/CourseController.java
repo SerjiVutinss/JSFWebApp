@@ -22,11 +22,9 @@ public class CourseController {
 	private List<Course> courses;
 
 	public CourseController() {
-
 		try {
 			courseDao = new CourseDAO();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -48,14 +46,9 @@ public class CourseController {
 		try {
 			this.courses = courseDao.getAll();
 		} catch (SQLException e) {
-			FacesMessage msg = new FacesMessage("Could not load courses");
+			FacesMessage msg = new FacesMessage(ErrorHandler.handleSqlException(e));
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-
-			ErrorHandler.printSQLException(e);
-			
-			
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -66,15 +59,10 @@ public class CourseController {
 		} catch (SQLException e) {
 
 			FacesMessage msg;
-//			if (e.getErrorCode() == 1062) {
-//				FacesMessage msg = new FacesMessage("Error: CourseID " + c.getId() + " already exists");
-//			}
-//			ErrorHandler.printSQLException(e);
 			msg = new FacesMessage(ErrorHandler.handleSqlException(e, c));
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -91,15 +79,11 @@ public class CourseController {
 			msg = new FacesMessage(ErrorHandler.handleSqlException(e, c));
 
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-//			e.printStackTrace();
-//			ErrorHandler.printSQLException(e);
-//			return null;
+			return null;
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-
-		// returns page to navigate to - can also return null on error
-		return "index.html";
+		return "list_courses";
 	}
 }

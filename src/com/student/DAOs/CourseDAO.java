@@ -71,8 +71,9 @@ public class CourseDAO implements DAO<Course> {
 		PreparedStatement pstmt = conn.prepareStatement(strSql);
 		pstmt.setString(1, c.getId());
 
-		int result = pstmt.executeUpdate();
-		System.out.println(result);
+		pstmt.executeUpdate();
+//		int result = pstmt.executeUpdate();
+//		System.out.println(result);
 	}
 
 	private static Course resultSetToCourse(ResultSet rs) {
