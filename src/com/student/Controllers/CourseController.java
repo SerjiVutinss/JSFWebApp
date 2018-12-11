@@ -22,11 +22,11 @@ public class CourseController {
 	private List<Course> courses;
 
 	public CourseController() {
-		try {
-			courseDao = new CourseDAO();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		courseDao = new CourseDAO();
+//		try {
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public List<Course> getCourses() {
@@ -35,10 +35,6 @@ public class CourseController {
 
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
-	}
-
-	public void test() {
-		System.out.println("we");
 	}
 
 	public void loadCourses() {
@@ -56,8 +52,8 @@ public class CourseController {
 	public String addCourse(Course c) {
 		try {
 			this.courseDao.save(c);
+			return "list_courses";
 		} catch (SQLException e) {
-
 			FacesMessage msg;
 			msg = new FacesMessage(ErrorHandler.handleSqlException(e, c));
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -74,10 +70,8 @@ public class CourseController {
 		try {
 			this.courseDao.delete(c);
 		} catch (SQLException e) {
-			FacesMessage msg;// = new FacesMessage("Error: Cannot delete");
-
+			FacesMessage msg;
 			msg = new FacesMessage(ErrorHandler.handleSqlException(e, c));
-
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		} catch (NamingException e) {

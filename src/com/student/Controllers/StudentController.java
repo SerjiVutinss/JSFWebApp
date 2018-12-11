@@ -69,6 +69,7 @@ public class StudentController {
 			this.msg = new FacesMessage(
 					"Warning: Neo4j DB is unavailable - no operation performed for Student '" + s.getName() + "'");
 			FacesContext.getCurrentInstance().addMessage(null, this.msg);
+			return null;
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return null;
@@ -105,6 +106,7 @@ public class StudentController {
 			// neo4j is not available
 			this.msg = new FacesMessage(
 					"Warning: Student " + s.getName() + " has not been removed from Neo4j DB as it is unavailable");
+			return null;
 		} catch (SQLException e) {
 			// if mysql database not available
 			if (e.getErrorCode() == 0) {
@@ -123,6 +125,5 @@ public class StudentController {
 		} finally {
 			this.studentNeoDao = null;
 		}
-		return null;
 	}
 }
