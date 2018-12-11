@@ -5,26 +5,22 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
-
-<f:event type="preRenderView"
-	listener="#{courseController.loadCourses()}" />
-
-
 <h:head>
 	<title>Add Course</title>
+	<h:outputStylesheet library="css" name="styles.css" />
 	<h:outputStylesheet library="css" name="messages.css" />
 </h:head>
 
 <h:body>
 
-	<h3>Add Course</h3>
-	<h:messages globalOnly="true" styleClass="validationMessage" />
+	<header>Add Course</header>
+	<h:messages globalOnly="true" styleClass="page-messages" />
 
-	<h:form>
+	<h:form styleClass="add-form">
 
 		<h:panelGrid columns="3">
 
-			<h:outputLabel value="Course ID:" />
+			<h:outputLabel styleClass="labeld" value="Course ID:" />
 			<h:inputText value="#{course.id}" id="cID" placeholder="Course ID"
 				required="true" requiredMessage="Course ID is mandatory"
 				validatorMessage="Course ID must be between 1 and 10 characters inclusive">
@@ -32,7 +28,7 @@
 			</h:inputText>
 			<h:message class="validationMessage" for="cID" />
 
-			<h:outputLabel value="Name:" />
+			<h:outputLabel styleClass="labeld" value="Name:" />
 			<h:inputText value="#{course.name}" id="name" placeholder="Name"
 				required="true" requiredMessage="Name is mandatory"
 				validatorMessage="Course name must be between 1 and 50 characters inclusive">
@@ -40,7 +36,7 @@
 			</h:inputText>
 			<h:message class="validationMessage" for="name" />
 
-			<h:outputLabel value="Duration:" />
+			<h:outputLabel styleClass="labeld" value="Duration:" />
 			<h:inputText value="#{course.duration}" id="duration"
 				placeholder="Course Duration" required="true"
 				requiredMessage="Duration is mandatory"
@@ -49,22 +45,19 @@
 			</h:inputText>
 			<h:message class="validationMessage" for="duration" />
 
-			<f:facet name="footer">
-				<h:panelGroup style="display:block; text-align:center">
-					<h:commandButton action="#{courseController.addCourse(course)}"
-						type="submit" value="Add" />
-				</h:panelGroup>
-			</f:facet>
 		</h:panelGrid>
 
+		<h:commandButton styleClass="add-button form-button"
+			action="#{courseController.addCourse(course)}" type="submit"
+			value="Add" />
 
 	</h:form>
 
-
-	<br />
-
-	<h:link value="Home" outcome="index" />
-	<h:link value="Courses" outcome="list_courses" />
+	<footer>
+		<h:link styleClass="footer-link" value="Home" outcome="index" />
+		<h:link styleClass="footer-link" value="Courses"
+			outcome="list_courses" />
+	</footer>
 
 </h:body>
 </html>

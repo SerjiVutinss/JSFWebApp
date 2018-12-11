@@ -3,3 +3,15 @@
 .validationMessage {
 	color: red;
 }
+
+.page-messages {
+	color: red;	
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 4px;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 10px;
+	margin-bottom: 15px;
+	list-style-type: none;
+}

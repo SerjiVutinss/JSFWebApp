@@ -1,18 +1,48 @@
-.error {
-	color: red;
+.add-form {
+	border: 1px solid aqua;
+	background-color:  #eaf2f8;
+	padding: 10px;
 }
 
-.addbutton {
-	border: 1px solid #666; 
-	border-radius: 5px; 
-	padding: 4px; 
+.add-button {
+	border: 1px solid #666;
+	border-radius: 5px;
+	padding: 4px;
 	font-size: 12px;
 	font-weight: bold;
-	width: 120px; 
-	padding: 5px 10px; 
+	width: 120px;
+	padding: 5px 10px;
 	margin-bottom: 15px;
+}
+
+.form-button {
+	margin-top: 20px;
+	color: red;
+	margin-left: 100px;
 }
 
 .labeld {
 	font-weight: bold;
+}
+
+header {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+footer {
+	margin-top: 20px;
+}
+
+.footer-link {
+	text-decoration: none;
+	border: 1px solid #666;
+	border-radius: 5px;
+	padding: 4px;
+	font-size: 12px;
+	font-weight: bold;
+	width: 120px;
+	padding: 5px 10px;
+	margin-right: 5px;
+	margin-bottom: 15px;
 }

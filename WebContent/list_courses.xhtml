@@ -11,14 +11,18 @@
 
 <h:head>
 	<title>Manage Courses</title>
+	<h:outputStylesheet library="css" name="styles.css" />
 	<h:outputStylesheet library="css" name="messages.css" />
 </h:head>
 
 <h:body>
 
-	<h:messages globalOnly="true" styleClass="validationMessage" />
+	<header>Courses</header>
 
-	<h:button outcome="add_course" value="Add Course" />
+	<h:messages globalOnly="true" styleClass="page-messages" />
+
+	<h:button styleClass="add-button" outcome="add_course"
+		value="Add Course" />
 	<br />
 
 	<h:form>
@@ -53,7 +57,9 @@
 
 	</h:form>
 
-	<h:link value="Home" outcome="index" />
+	<footer>
+		<h:link styleClass="footer-link" value="Home" outcome="index" />
+	</footer>
 
 </h:body>
 </html>

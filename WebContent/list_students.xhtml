@@ -11,14 +11,16 @@
 
 <h:head>
 	<title>Manage Students</title>
+	<h:outputStylesheet library="css" name="styles.css" />
 	<h:outputStylesheet library="css" name="messages.css" />
 </h:head>
 
 <h:body>
-	<h1>student list</h1>
-	<h:messages globalOnly="true" styleClass="validationMessage" />
+	<header>Students</header>
+	<h:messages globalOnly="true" styleClass="page-messages" />
 
-	<h:button outcome="add_student" value="Add Student" />
+	<h:button styleClass="add-button" outcome="add_student"
+		value="Add Student" />
 
 	<h:form>
 		<h:dataTable value="#{studentController.students}" var="s"
@@ -57,7 +59,9 @@
 		</h:dataTable>
 	</h:form>
 
-	<h:link value="Home" outcome="index" />
+	<footer>
+		<h:link styleClass="footer-link" value="Home" outcome="index" />
+	</footer>
 
 </h:body>
 </html>
