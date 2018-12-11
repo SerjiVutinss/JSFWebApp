@@ -31,7 +31,11 @@
 
 			<h:outputLabel value="Name:" />
 			<h:inputText value="#{course.name}" id="name" placeholder="Name"
-				required="true" requiredMessage="Name is mandatory" />
+				required="true" requiredMessage="Name is mandatory"
+				validatorMessage="Course name must be between 1 and 50 characters inclusive">
+				<f:validateLength minimum="1" maximum="50" />
+			</h:inputText>
+
 			<h:message class="validationMessage" for="name" />
 
 
