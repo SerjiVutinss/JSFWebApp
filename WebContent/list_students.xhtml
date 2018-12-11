@@ -24,7 +24,8 @@
 
 	<h:form>
 		<h:dataTable value="#{studentController.students}" var="s"
-			headerClass="table-header" rowClasses="table-odd-row, table-even-row">
+			headerClass="table-header" rowClasses="table-odd-row, table-even-row"
+			cellpadding="4">
 			<h:outputStylesheet library="css" name="tables.css" />
 
 			<h:column>
@@ -49,7 +50,7 @@
 
 			<h:column>
 				<f:facet name="header">Action</f:facet>
-				<h:commandLink value="Show Students"
+				<h:commandLink value="All Details"
 					action="#{courseStudentsController.showStudentCourse(s)}"></h:commandLink>
 				<span> </span>
 				<h:commandLink value="Delete"

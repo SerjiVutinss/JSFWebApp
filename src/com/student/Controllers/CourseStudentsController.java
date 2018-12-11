@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 
+import com.student.ErrorHandler;
 import com.student.DAOs.CourseStudentsDAO;
 import com.student.Models.Course;
 import com.student.Models.Student;
@@ -48,7 +51,8 @@ public class CourseStudentsController {
 		try {
 			this.students = this.courseStudentsDAO.getStudents(c);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			FacesMessage msg = new FacesMessage(ErrorHandler.handleSqlException(e, c));
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,12 +64,13 @@ public class CourseStudentsController {
 	}
 
 	public String showStudentCourse(Student s) {
-		System.out.println(s.getSid());
+
 		this.students = new ArrayList<>();
 		try {
 			this.students.add(this.courseStudentsDAO.getCourse(s));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			FacesMessage msg = new FacesMessage(ErrorHandler.handleSqlException(e, s));
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

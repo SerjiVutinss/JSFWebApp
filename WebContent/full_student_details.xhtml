@@ -8,15 +8,18 @@
 
 <h:head>
 	<title>Full Student Details</title>
+	<h:outputStylesheet library="css" name="styles.css" />
+	<h:outputStylesheet library="css" name="messages.css" />
 </h:head>
 
 <h:body>
-	<h1>Student Details</h1>
-	<h:messages globalOnly="true" styleClass="error" />
+	<header>Full Student Details</header>
+	<h:messages globalOnly="true" styleClass="page-messages" />
 
 	<h:form>
 		<h:dataTable value="#{courseStudentsController.students}" var="s"
-			headerClass="table-header" rowClasses="table-odd-row, table-even-row">
+			headerClass="table-header" rowClasses="table-odd-row, table-even-row"
+			cellpadding="4">
 			<h:outputStylesheet library="css" name="tables.css" />
 
 			<h:column>
@@ -44,24 +47,15 @@
 			#{s.course.duration}
 			</h:column>
 
-
-			<!--
-			<h:column>
-				<f:facet name="header">CourseID</f:facet>
-			#{s.cID}
-			</h:column>
- 
-			<h:column>
-				<f:facet name="header">Address</f:facet>
-			#{s.address}
-			</h:column>
-			-->
-
 		</h:dataTable>
 	</h:form>
 
-	<span><h:link value="Home" outcome="index" /></span>
-	<span><h:link value="Students" outcome="list_students" /></span>
+	<footer>
+		<h:link styleClass="footer-link" value="Home" outcome="index" />
+		<h:link styleClass="footer-link" value="Students"
+			outcome="list_students" />
+	</footer>
+
 
 </h:body>
 </html>

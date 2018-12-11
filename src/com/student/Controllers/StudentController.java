@@ -125,15 +125,4 @@ public class StudentController {
 		}
 		return null;
 	}
-
-	public String getNeo4jStudents() {
-
-		System.out.println("GETTING NEO4J STUDENTS!!!");
-
-//		StudentNeoDAO studentNeoDAO = new StudentNeoDAO();
-
-//		studentNeoDAO.getStudents();
-
-		return null;
-	}
 }

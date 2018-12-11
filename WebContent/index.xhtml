@@ -5,16 +5,18 @@
 
 <h:head>
 	<title>DCW Project 2018/19</title>
+	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 <h:body>
-	<h:link value="Manage Courses" outcome="list_courses" />
-	<br />
-	<h:link value="Manage Students" outcome="list_students.xhtml" />
 
-	<h:form>
-		<h:commandLink value="Log Neo4j Students"
-			action="#{studentController.getNeo4jStudents()}"></h:commandLink>
-	</h:form>
+	<header>Home Page</header>
+
+	<ul style="list-style-type: none;">
+		<li><h:button styleClass="link-button" value="Manage Courses"
+				outcome="list_courses" /></li>
+		<li><h:button styleClass="link-button" value="Manage Students"
+				outcome="list_students.xhtml" /></li>
+	</ul>
 
 </h:body>
 </html>
